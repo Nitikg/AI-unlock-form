@@ -5,86 +5,128 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIUnlocked - Workshop Interest Form</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --surface: #13131a;
-    --surface2: #1c1c28;
-    --border: #2a2a3a;
-    --accent: #7c6af7;
-    --accent2: #e96cff;
-    --text: #e8e8f0;
-    --muted: #7878a0;
-    --success: #4ade80;
-    --radius: 12px;
-  }
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+/* ── Dark theme (default) ── */
+:root {
+–bg:        #0a0a0f;
+–surface:   #13131a;
+–surface2:  #1c1c28;
+–border:    #2a2a3a;
+–text:      #e8e8f0;
+–label:     #c0c0d8;
+–muted:     #7878a0;
+–accent:    #7c6af7;
+–accent2:   #e96cff;
+–accentbg:  rgba(124,106,247,0.12);
+–accentbdr: rgba(124,106,247,0.4);
+–success:   #4ade80;
+–error:     #f87171;
+–feebg:     rgba(124,106,247,0.07);
+–feedbr:    rgba(124,106,247,0.25);
+–feetext:   #b0b0cc;
+–optspan:   #8888a8;
+–inputbg:   #1c1c28;
+–headerbg1: #1e1040;
+–headerbg2: #0d0d20;
+}
+
+/* ── Light theme override ── */
+@media (prefers-color-scheme: light) {
+:root {
+–bg:        #f4f4f8;
+–surface:   #ffffff;
+–surface2:  #f0f0f6;
+–border:    #dcdce8;
+–text:      #111118;
+–label:     #333348;
+–muted:     #888899;
+–accent:    #6254e8;
+–accent2:   #c840f0;
+–accentbg:  rgba(98,84,232,0.08);
+–accentbdr: rgba(98,84,232,0.35);
+–success:   #16a34a;
+–error:     #dc2626;
+–feebg:     rgba(98,84,232,0.05);
+–feedbr:    rgba(98,84,232,0.2);
+–feetext:   #555570;
+–optspan:   #555568;
+–inputbg:   #f8f8fc;
+–headerbg1: #ede9ff;
+–headerbg2: #f4f0ff;
+}
+}
 
 body {
 background: var(–bg);
 color: var(–text);
-font-family: ‘DM Sans’, sans-serif;
-font-weight: 400;
+font-family: ‘DM Sans’, system-ui, sans-serif;
+font-size: 15px;
+line-height: 1.5;
 min-height: 100vh;
-padding: 0 0 60px;
+padding-bottom: 60px;
 -webkit-font-smoothing: antialiased;
 }
 
 /* ── Header ── */
 .header {
-background: linear-gradient(160deg, #1e1040 0%, #0d0d20 50%, #0a0a0f 100%);
-padding: 36px 20px 32px;
+background: linear-gradient(160deg, var(–headerbg1) 0%, var(–headerbg2) 50%, var(–bg) 100%);
+padding: 36px 20px 30px;
 text-align: center;
 border-bottom: 1px solid var(–border);
 }
 .badge {
 display: inline-block;
-background: rgba(124,106,247,0.15);
-border: 1px solid rgba(124,106,247,0.4);
-color: #b8adff;
+background: var(–accentbg);
+border: 1px solid var(–accentbdr);
+color: var(–accent);
 font-size: 11px;
 font-weight: 500;
 letter-spacing: 1.5px;
 text-transform: uppercase;
 padding: 5px 14px;
 border-radius: 20px;
-margin-bottom: 16px;
+margin-bottom: 14px;
 }
 .header h1 {
 font-family: ‘Syne’, sans-serif;
-font-size: clamp(28px, 8vw, 42px);
+font-size: clamp(26px, 7vw, 40px);
 font-weight: 800;
 line-height: 1.15;
-background: linear-gradient(135deg, #ffffff 20%, #c4bbff 60%, #e96cff 100%);
+color: var(–text);
+margin-bottom: 10px;
+}
+.header h1 em {
+font-style: normal;
+background: linear-gradient(135deg, var(–accent), var(–accent2));
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 background-clip: text;
-margin-bottom: 10px;
 }
 .header p {
 color: var(–muted);
 font-size: 14px;
-line-height: 1.6;
-max-width: 340px;
+max-width: 320px;
 margin: 0 auto;
 }
 
-/* ── Form wrap ── */
+/* ── Wrap ── */
 .form-wrap {
 max-width: 540px;
 margin: 20px auto 0;
 padding: 0 14px;
 }
 
-/* ── Sections ── */
+/* ── Section card ── */
 .section {
 background: var(–surface);
 border: 1px solid var(–border);
-border-radius: var(–radius);
+border-radius: 14px;
 padding: 20px 16px;
-margin-bottom: 14px;
+margin-bottom: 12px;
 }
 .section-title {
 font-family: ‘Syne’, sans-serif;
@@ -98,84 +140,79 @@ display: flex;
 align-items: center;
 gap: 10px;
 }
-.section-title span.line {
+.section-title .line {
 flex: 1;
 height: 1px;
 background: var(–border);
-display: block;
 }
 
-/* ── Fields ── */
-.field { margin-bottom: 16px; }
+/* ── Field ── */
+.field { margin-bottom: 14px; }
 .field:last-child { margin-bottom: 0; }
-
 .field > label {
 display: block;
 font-size: 13px;
 font-weight: 500;
-color: #c0c0d8;
+color: var(–label);
 margin-bottom: 7px;
 }
-.req { color: var(–accent2); margin-left: 2px; }
+.req { color: var(–accent2); }
 .opt { color: var(–muted); font-weight: 400; font-size: 11px; }
 
+/* ── Inputs ── */
 input[type=“text”],
 input[type=“email”],
 input[type=“tel”],
 select,
 textarea {
+display: block;
 width: 100%;
-background: var(–surface2);
-border: 1px solid var(–border);
-border-radius: 8px;
+background: var(–inputbg);
+border: 1.5px solid var(–border);
+border-radius: 9px;
 color: var(–text);
-font-family: ‘DM Sans’, sans-serif;
+font-family: inherit;
 font-size: 15px;
-font-weight: 400;
-padding: 12px 14px;
+padding: 11px 13px;
 outline: none;
-transition: border-color 0.2s, box-shadow 0.2s;
+transition: border-color 0.18s, box-shadow 0.18s;
 -webkit-appearance: none;
 appearance: none;
 }
 input::placeholder, textarea::placeholder { color: var(–muted); font-size: 14px; }
 input:focus, select:focus, textarea:focus {
 border-color: var(–accent);
-box-shadow: 0 0 0 3px rgba(124,106,247,0.15);
+box-shadow: 0 0 0 3px var(–accentbg);
 }
-select {
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%237878a0’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);
-background-repeat: no-repeat;
-background-position: right 14px center;
-padding-right: 38px;
-cursor: pointer;
-color: var(–text);
-}
-select option { background: #1c1c28; color: var(–text); }
-textarea { resize: vertical; min-height: 88px; line-height: 1.55; }
+input.error, select.error { border-color: var(–error) !important; }
 
-/* ── Options grid ── */
-.options-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 8px;
+select {
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘7’ viewBox=‘0 0 12 7’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%23888899’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’ stroke-linejoin=‘round’/%3E%3C/svg%3E”);
+background-repeat: no-repeat;
+background-position: right 13px center;
+padding-right: 36px;
+cursor: pointer;
 }
+textarea { resize: vertical; min-height: 86px; line-height: 1.55; }
+
+/* ── Option items (radio/checkbox cards) ── */
+.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .options-grid.single { grid-template-columns: 1fr; }
 
 .option-item {
 display: flex;
 align-items: center;
 gap: 10px;
-background: var(–surface2);
-border: 1px solid var(–border);
-border-radius: 8px;
-padding: 11px 13px;
+background: var(–inputbg);
+border: 1.5px solid var(–border);
+border-radius: 9px;
+padding: 11px 12px;
 cursor: pointer;
 transition: border-color 0.15s, background 0.15s;
-user-select: none;
 -webkit-user-select: none;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
 }
-.option-item:active { background: rgba(124,106,247,0.08); }
 .option-item input[type=“radio”],
 .option-item input[type=“checkbox”] {
 width: 17px;
@@ -183,78 +220,85 @@ height: 17px;
 min-width: 17px;
 accent-color: var(–accent);
 cursor: pointer;
-margin: 0; padding: 0;
-border: none;
-background: transparent;
-box-shadow: none;
 -webkit-appearance: auto;
 appearance: auto;
+margin: 0;
+flex-shrink: 0;
 }
-.option-item:has(input:checked) {
-border-color: var(–accent);
-background: rgba(124,106,247,0.1);
-}
-.option-item span {
+.option-item .opt-label {
 font-size: 13px;
-color: var(–muted);
+color: var(–optspan);
 line-height: 1.3;
 }
-.option-item:has(input:checked) span { color: #e0dbff; }
+/* JS-driven selected state (no :has reliance) */
+.option-item.selected {
+border-color: var(–accent);
+background: var(–accentbg);
+}
+.option-item.selected .opt-label { color: var(–text); }
 
 /* ── Toggle buttons ── */
-.commit-row { display: flex; flex-direction: column; gap: 16px; }
-.commit-field > label { display: block; font-size: 13px; font-weight: 500; color: #c0c0d8; margin-bottom: 8px; }
-.toggle-group { display: flex; gap: 8px; }
+.toggle-group { display: flex; gap: 8px; margin-top: 2px; }
 .toggle-btn {
 flex: 1;
-background: var(–surface2);
-border: 1px solid var(–border);
-border-radius: 8px;
+position: relative;
+background: var(–inputbg);
+border: 1.5px solid var(–border);
+border-radius: 9px;
 color: var(–muted);
-font-family: ‘DM Sans’, sans-serif;
+font-family: inherit;
 font-size: 13px;
 font-weight: 500;
 padding: 11px 8px;
 cursor: pointer;
 text-align: center;
-transition: all 0.15s;
-position: relative;
-line-height: 1.3;
+transition: border-color 0.15s, background 0.15s, color 0.15s;
+-webkit-tap-highlight-color: transparent;
 }
-.toggle-btn input {
+.toggle-btn input[type=“radio”] {
 position: absolute;
 opacity: 0;
 width: 0; height: 0;
 pointer-events: none;
 }
-.toggle-btn:has(input:checked) {
-background: rgba(124,106,247,0.15);
+.toggle-btn.selected {
+background: var(–accentbg);
 border-color: var(–accent);
-color: #d0caff;
+color: var(–accent);
+font-weight: 600;
 }
 
-/* ── Fee info ── */
-.fee-info {
-background: rgba(124,106,247,0.07);
-border: 1px solid rgba(124,106,247,0.25);
-border-radius: 8px;
-padding: 13px 14px;
-margin-bottom: 12px;
-}
-.fee-info p {
+/* ── Commit section ── */
+.commit-row { display: flex; flex-direction: column; gap: 16px; }
+.commit-field > label {
+display: block;
 font-size: 13px;
-color: #b0b0cc;
+font-weight: 500;
+color: var(–label);
+margin-bottom: 8px;
+}
+
+/* ── Fee info box ── */
+.fee-info {
+background: var(–feebg);
+border: 1px solid var(–feedbr);
+border-radius: 9px;
+padding: 12px 14px;
+margin-bottom: 10px;
+font-size: 13px;
+color: var(–feetext);
 line-height: 1.65;
 }
-.fee-info strong { color: #d8d0ff; font-weight: 500; }
+.fee-info strong { color: var(–accent); font-weight: 600; }
 
 /* ── Submit ── */
 .submit-wrap { margin-top: 6px; }
-button[type=“submit”] {
+.submit-btn {
+display: block;
 width: 100%;
-background: linear-gradient(135deg, #7c6af7, #e96cff);
+background: linear-gradient(135deg, var(–accent) 0%, var(–accent2) 100%);
 border: none;
-border-radius: 10px;
+border-radius: 11px;
 color: #fff;
 font-family: ‘Syne’, sans-serif;
 font-size: 15px;
@@ -262,12 +306,13 @@ font-weight: 700;
 letter-spacing: 0.3px;
 padding: 15px;
 cursor: pointer;
-transition: opacity 0.2s, transform 0.1s;
-box-shadow: 0 4px 24px rgba(124,106,247,0.35);
+box-shadow: 0 4px 20px rgba(124,106,247,0.35);
+transition: opacity 0.2s, transform 0.12s;
 -webkit-appearance: none;
+appearance: none;
 }
-button[type=“submit”]:active { transform: scale(0.98); opacity: 0.9; }
-button[type=“submit”]:disabled { opacity: 0.55; cursor: not-allowed; }
+.submit-btn:active { transform: scale(0.98); opacity: 0.88; }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 .note {
 text-align: center;
@@ -277,27 +322,36 @@ margin-top: 10px;
 line-height: 1.5;
 }
 
+/* ── Error hint ── */
+.error-hint {
+display: none;
+color: var(–error);
+font-size: 12px;
+margin-top: 5px;
+}
+.error-hint.show { display: block; }
+
 /* ── Success ── */
 .success-msg {
 display: none;
 text-align: center;
-padding: 40px 20px;
+padding: 44px 20px;
 background: var(–surface);
-border: 1px solid rgba(74,222,128,0.3);
-border-radius: var(–radius);
+border: 1px solid rgba(74,222,128,0.35);
+border-radius: 14px;
 margin-top: 20px;
 }
-.success-msg .icon { font-size: 44px; margin-bottom: 14px; }
+.success-msg .icon { font-size: 48px; margin-bottom: 14px; }
 .success-msg h2 {
 font-family: ‘Syne’, sans-serif;
 font-size: 22px;
-font-weight: 700;
+font-weight: 800;
 color: var(–success);
 margin-bottom: 8px;
 }
 .success-msg p { color: var(–muted); font-size: 14px; line-height: 1.6; }
 
-/* ── Mobile tweaks ── */
+/* ── Responsive ── */
 @media (max-width: 480px) {
 .options-grid { grid-template-columns: 1fr; }
 }
@@ -308,93 +362,98 @@ margin-bottom: 8px;
 
 <div class="header">
   <div class="badge">AIUnlocked &bull; Virtual Workshop</div>
-  <h1>Unlock AI.<br>Build Smarter.</h1>
-  <p>Register your interest and help us shape a workshop that is built around you.</p>
+  <h1>Unlock AI.<br><em>Build Smarter.</em></h1>
+  <p>Register your interest and help us shape a workshop built around you.</p>
 </div>
 
 <div class="form-wrap">
   <form id="workshopForm" novalidate>
 
 ```
-<!-- Basic Info -->
+<!-- ── Your Details ── -->
 <div class="section">
   <div class="section-title">Your Details <span class="line"></span></div>
 
   <div class="field">
-    <label>Full Name <span class="req">*</span></label>
-    <input type="text" name="fullname" placeholder="Rohan Sharma" required autocomplete="name">
+    <label for="f-name">Full Name <span class="req">*</span></label>
+    <input type="text" id="f-name" name="fullname" placeholder="Rohan Sharma" autocomplete="name">
+    <div class="error-hint" id="err-name">Please enter your full name.</div>
   </div>
   <div class="field">
-    <label>Phone Number <span class="req">*</span></label>
-    <input type="tel" name="phone" placeholder="+91 98765 43210" required autocomplete="tel">
+    <label for="f-phone">Phone Number <span class="req">*</span></label>
+    <input type="tel" id="f-phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel">
+    <div class="error-hint" id="err-phone">Please enter your phone number.</div>
   </div>
   <div class="field">
-    <label>Email <span class="req">*</span></label>
-    <input type="email" name="email" placeholder="rohan@email.com" required autocomplete="email">
+    <label for="f-email">Email <span class="req">*</span></label>
+    <input type="email" id="f-email" name="email" placeholder="rohan@email.com" autocomplete="email">
+    <div class="error-hint" id="err-email">Please enter a valid email.</div>
   </div>
   <div class="field">
-    <label>College / Organization <span class="opt">(optional)</span></label>
-    <input type="text" name="org" placeholder="e.g. DTU, Infosys, Freelancer">
+    <label for="f-org">College / Organization <span class="opt">(optional)</span></label>
+    <input type="text" id="f-org" name="org" placeholder="e.g. DTU, Infosys, Freelancer">
   </div>
   <div class="field">
-    <label>Your Role <span class="req">*</span></label>
-    <select name="role" required>
-      <option value="" disabled selected>Select your role</option>
+    <label for="f-role">Your Role <span class="req">*</span></label>
+    <select id="f-role" name="role">
+      <option value="">Select your role</option>
       <option value="Student">Student</option>
       <option value="Working Professional">Working Professional</option>
       <option value="Other">Other</option>
     </select>
+    <div class="error-hint" id="err-role">Please select your role.</div>
   </div>
 </div>
 
-<!-- AI Awareness -->
+<!-- ── AI Awareness ── -->
 <div class="section">
   <div class="section-title">AI Awareness <span class="line"></span></div>
   <div class="field">
     <label>How familiar are you with AI tools? <span class="req">*</span></label>
-    <div class="options-grid single">
+    <div class="options-grid single" id="grid-awareness">
       <label class="option-item">
-        <input type="radio" name="awareness" value="Use regularly" required>
-        <span>&#x1F680; I use AI tools regularly</span>
+        <input type="radio" name="awareness" value="Use regularly">
+        <span class="opt-label">&#x1F680; I use AI tools regularly</span>
       </label>
       <label class="option-item">
         <input type="radio" name="awareness" value="Rarely use">
-        <span>&#x1F50D; I rarely use them</span>
+        <span class="opt-label">&#x1F50D; I rarely use them</span>
       </label>
       <label class="option-item">
         <input type="radio" name="awareness" value="Heard only">
-        <span>&#x1F442; I have only heard about them</span>
+        <span class="opt-label">&#x1F442; I have only heard about them</span>
       </label>
       <label class="option-item">
         <input type="radio" name="awareness" value="Never heard">
-        <span>&#x1F937; Never heard of them</span>
+        <span class="opt-label">&#x1F937; Never heard of them</span>
       </label>
     </div>
+    <div class="error-hint" id="err-awareness">Please select one option.</div>
   </div>
 </div>
 
-<!-- Tools & Interests -->
+<!-- ── Tools & Interests ── -->
 <div class="section">
   <div class="section-title">Tools &amp; Interests <span class="line"></span></div>
 
   <div class="field">
     <label>AI Tools You Have Used <span class="opt">(select all that apply)</span></label>
-    <div class="options-grid">
+    <div class="options-grid" id="grid-tools">
       <label class="option-item">
         <input type="checkbox" name="tools" value="ChatGPT">
-        <span>ChatGPT</span>
+        <span class="opt-label">ChatGPT</span>
       </label>
       <label class="option-item">
         <input type="checkbox" name="tools" value="Claude">
-        <span>Claude</span>
+        <span class="opt-label">Claude</span>
       </label>
       <label class="option-item">
         <input type="checkbox" name="tools" value="Gemini">
-        <span>Gemini</span>
+        <span class="opt-label">Gemini</span>
       </label>
       <label class="option-item">
         <input type="checkbox" name="tools" value="None">
-        <span>None yet</span>
+        <span class="opt-label">None yet</span>
       </label>
     </div>
     <input type="text" name="toolsOther" placeholder="Using something else? e.g. Perplexity, Copilot..." style="margin-top:8px;">
@@ -402,26 +461,26 @@ margin-bottom: 8px;
 
   <div class="field">
     <label>What do you want to learn? <span class="opt">(select all that apply)</span></label>
-    <div class="options-grid">
+    <div class="options-grid" id="grid-interests">
       <label class="option-item">
         <input type="checkbox" name="interests" value="Assignments">
-        <span>Assignments</span>
+        <span class="opt-label">Assignments</span>
       </label>
       <label class="option-item">
         <input type="checkbox" name="interests" value="Resume building">
-        <span>Resume building</span>
+        <span class="opt-label">Resume building</span>
       </label>
       <label class="option-item">
         <input type="checkbox" name="interests" value="Learning concepts">
-        <span>Learning concepts</span>
+        <span class="opt-label">Learning concepts</span>
       </label>
       <label class="option-item">
         <input type="checkbox" name="interests" value="Productivity">
-        <span>Productivity</span>
+        <span class="opt-label">Productivity</span>
       </label>
       <label class="option-item">
         <input type="checkbox" name="interests" value="Coding">
-        <span>Coding</span>
+        <span class="opt-label">Coding</span>
       </label>
     </div>
     <input type="text" name="interestsOther" placeholder="Anything else? e.g. content creation, job search..." style="margin-top:8px;">
@@ -433,16 +492,16 @@ margin-bottom: 8px;
   </div>
 </div>
 
-<!-- Commitment -->
+<!-- ── Commitment ── -->
 <div class="section">
   <div class="section-title">Commitment <span class="line"></span></div>
   <div class="commit-row">
 
     <div class="commit-field">
       <label>Are you willing to attend? <span class="req">*</span></label>
-      <div class="toggle-group">
+      <div class="toggle-group" id="tg-attend">
         <label class="toggle-btn">
-          <input type="radio" name="attend" value="Yes" required>
+          <input type="radio" name="attend" value="Yes">
           &#x2705; Yes
         </label>
         <label class="toggle-btn">
@@ -450,16 +509,17 @@ margin-bottom: 8px;
           &#x1F914; Maybe
         </label>
       </div>
+      <div class="error-hint" id="err-attend">Please select an option.</div>
     </div>
 
     <div class="commit-field">
       <label>&#x20B9;99 Refundable Commitment Fee <span class="req">*</span></label>
       <div class="fee-info">
-        <p>This is a <strong>virtual workshop</strong>. We collect a small &#x20B9;99 fee to confirm your seat and keep the group serious. It is <strong>fully refunded</strong> at the end of the live session. If you do not show up, the fee is forfeited.</p>
+        This is a <strong>virtual workshop</strong>. We collect a small &#x20B9;99 fee to confirm your seat and keep the group focused. It is <strong>fully refunded</strong> at the end of the live session. If you do not show up, the fee is forfeited.
       </div>
-      <div class="toggle-group">
+      <div class="toggle-group" id="tg-fee">
         <label class="toggle-btn">
-          <input type="radio" name="fee" value="Yes" required>
+          <input type="radio" name="fee" value="Yes">
           &#x2705; Yes, I agree
         </label>
         <label class="toggle-btn">
@@ -467,13 +527,14 @@ margin-bottom: 8px;
           &#x274C; No
         </label>
       </div>
+      <div class="error-hint" id="err-fee">Please select an option.</div>
     </div>
 
     <div class="commit-field">
       <label>Will you attend the full session? <span class="req">*</span></label>
-      <div class="toggle-group">
+      <div class="toggle-group" id="tg-fullSession">
         <label class="toggle-btn">
-          <input type="radio" name="fullSession" value="Yes" required>
+          <input type="radio" name="fullSession" value="Yes">
           &#x1F4AF; Yes, fully
         </label>
         <label class="toggle-btn">
@@ -481,12 +542,13 @@ margin-bottom: 8px;
           &#x1F91C; Will try
         </label>
       </div>
+      <div class="error-hint" id="err-fullSession">Please select an option.</div>
     </div>
 
   </div>
 </div>
 
-<!-- Extra -->
+<!-- ── Extra ── -->
 <div class="section">
   <div class="section-title">Anything Else? <span class="line"></span></div>
   <div class="field">
@@ -495,9 +557,9 @@ margin-bottom: 8px;
   </div>
 </div>
 
-<!-- Submit -->
+<!-- ── Submit ── -->
 <div class="submit-wrap">
-  <button type="submit" id="submitBtn">Submit My Interest &#x2192;</button>
+  <button type="submit" class="submit-btn" id="submitBtn">Submit My Interest &#x2192;</button>
   <p class="note">Your data is used only for workshop planning. No spam, ever.</p>
 </div>
 ```
@@ -512,89 +574,203 @@ margin-bottom: 8px;
 </div>
 
 <script>
+(function () {
   var WEB3FORMS_KEY = 'a56cf30c-58e2-4260-ae4e-ec040bce648d';
 
-  document.getElementById('workshopForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    var form = e.target;
-    var btn = document.getElementById('submitBtn');
-
-    // Validate text/email/select required fields
-    var valid = true;
-    form.querySelectorAll('input[required]:not([type="radio"]), select[required]').forEach(function(el) {
-      if (!el.value.trim()) {
-        el.style.borderColor = '#f87171';
-        el.addEventListener('input', function() { el.style.borderColor = ''; }, { once: true });
-        valid = false;
+  // ── Visual state for option-items (radio/checkbox cards) ──
+  function syncOptionItems(container) {
+    if (!container) return;
+    var items = container.querySelectorAll('.option-item');
+    items.forEach(function (item) {
+      var inp = item.querySelector('input');
+      if (inp) {
+        if (inp.checked) {
+          item.classList.add('selected');
+        } else {
+          item.classList.remove('selected');
+        }
       }
     });
+  }
 
-    // Validate radio groups
-    ['awareness', 'attend', 'fee', 'fullSession'].forEach(function(name) {
-      var checked = Array.from(form.querySelectorAll('[name="' + name + '"]')).some(function(r) { return r.checked; });
-      if (!checked) valid = false;
+  // ── Visual state for toggle buttons ──
+  function syncToggleBtns(container) {
+    if (!container) return;
+    var btns = container.querySelectorAll('.toggle-btn');
+    btns.forEach(function (btn) {
+      var inp = btn.querySelector('input[type="radio"]');
+      if (inp) {
+        if (inp.checked) {
+          btn.classList.add('selected');
+        } else {
+          btn.classList.remove('selected');
+        }
+      }
+    });
+  }
+
+  // Attach listeners to all option grids
+  var optionGrids = document.querySelectorAll('.options-grid');
+  optionGrids.forEach(function (grid) {
+    grid.addEventListener('change', function () { syncOptionItems(grid); });
+    // also handle click for immediate feedback
+    grid.addEventListener('click', function () { setTimeout(function () { syncOptionItems(grid); }, 10); });
+  });
+
+  // Attach listeners to all toggle groups
+  var toggleGroups = document.querySelectorAll('.toggle-group');
+  toggleGroups.forEach(function (tg) {
+    tg.addEventListener('change', function () { syncToggleBtns(tg); });
+    tg.addEventListener('click', function () { setTimeout(function () { syncToggleBtns(tg); }, 10); });
+  });
+
+  // ── Helpers ──
+  function getRadio(name) {
+    var el = document.querySelector('[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  function getChecked(name) {
+    var vals = [];
+    document.querySelectorAll('[name="' + name + '"]:checked').forEach(function (el) {
+      vals.push(el.value);
+    });
+    return vals.length ? vals.join(', ') : 'None selected';
+  }
+
+  function showError(id, show) {
+    var el = document.getElementById(id);
+    if (el) {
+      if (show) { el.classList.add('show'); } else { el.classList.remove('show'); }
+    }
+  }
+
+  function markField(id, isError) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (isError) { el.classList.add('error'); } else { el.classList.remove('error'); }
+  }
+
+  // ── Validation ──
+  function validate() {
+    var ok = true;
+
+    // Name
+    var name = document.getElementById('f-name');
+    var nameFail = !name.value.trim();
+    markField('f-name', nameFail); showError('err-name', nameFail);
+    if (nameFail) ok = false;
+
+    // Phone
+    var phone = document.getElementById('f-phone');
+    var phoneFail = !phone.value.trim();
+    markField('f-phone', phoneFail); showError('err-phone', phoneFail);
+    if (phoneFail) ok = false;
+
+    // Email
+    var email = document.getElementById('f-email');
+    var emailFail = !email.value.trim() || email.value.indexOf('@') === -1;
+    markField('f-email', emailFail); showError('err-email', emailFail);
+    if (emailFail) ok = false;
+
+    // Role
+    var role = document.getElementById('f-role');
+    var roleFail = !role.value;
+    markField('f-role', roleFail); showError('err-role', roleFail);
+    if (roleFail) ok = false;
+
+    // Radio groups
+    ['awareness', 'attend', 'fee', 'fullSession'].forEach(function (name) {
+      var fail = !getRadio(name);
+      showError('err-' + name, fail);
+      if (fail) ok = false;
     });
 
-    if (!valid) {
-      var firstBad = form.querySelector('input[required]:not([type="radio"]):not([value]), select[required]');
-      if (firstBad) firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return ok;
+  }
+
+  // Clear errors on input
+  ['f-name','f-phone','f-email','f-role'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', function () {
+        el.classList.remove('error');
+        var errEl = document.getElementById('err-' + id.replace('f-',''));
+        if (errEl) errEl.classList.remove('show');
+      });
+      el.addEventListener('change', function () {
+        el.classList.remove('error');
+        var errEl = document.getElementById('err-' + id.replace('f-',''));
+        if (errEl) errEl.classList.remove('show');
+      });
+    }
+  });
+
+  // ── Submit ──
+  var form = document.getElementById('workshopForm');
+  var btn  = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (!validate()) {
+      // Scroll to first visible error
+      var firstErr = form.querySelector('.error, .error-hint.show');
+      if (firstErr) {
+        firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
-    function getChecked(name) {
-      var vals = Array.from(form.querySelectorAll('[name="' + name + '"]:checked')).map(function(el) { return el.value; });
-      return vals.length ? vals.join(', ') : 'None';
-    }
-    function getRadio(name) {
-      var el = form.querySelector('[name="' + name + '"]:checked');
-      return el ? el.value : '-';
-    }
-
     var payload = {
-      access_key: WEB3FORMS_KEY,
-      subject: 'New AIUnlocked Registration',
-      from_name: 'AIUnlocked Form',
-      'Full Name':          form.fullname.value.trim(),
-      'Phone':              form.phone.value.trim(),
-      'Email':              form.email.value.trim(),
-      'College / Org':      form.org.value.trim() || '-',
-      'Role':               form.role.value,
+      access_key:           WEB3FORMS_KEY,
+      subject:              'New AIUnlocked Workshop Registration',
+      from_name:            'AIUnlocked Form',
+      'Full Name':          document.getElementById('f-name').value.trim(),
+      'Phone':              document.getElementById('f-phone').value.trim(),
+      'Email':              document.getElementById('f-email').value.trim(),
+      'College / Org':      document.getElementById('f-org').value.trim() || '-',
+      'Role':               document.getElementById('f-role').value,
       'AI Awareness':       getRadio('awareness'),
       'Tools Used':         getChecked('tools'),
-      'Other Tools':        form.toolsOther.value.trim() || '-',
+      'Other Tools':        document.querySelector('[name="toolsOther"]').value.trim() || '-',
       'Learning Interests': getChecked('interests'),
-      'Other Interests':    form.interestsOther.value.trim() || '-',
-      'Biggest Problem':    form.problem.value.trim() || '-',
+      'Other Interests':    document.querySelector('[name="interestsOther"]').value.trim() || '-',
+      'Biggest Problem':    document.querySelector('[name="problem"]').value.trim() || '-',
       'Will Attend':        getRadio('attend'),
       'Fee Accepted':       getRadio('fee'),
       'Full Session':       getRadio('fullSession'),
-      'Extra Questions':    form.extra.value.trim() || '-',
+      'Extra Questions':    document.querySelector('[name="extra"]').value.trim() || '-',
       'Submitted At':       new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
     };
 
     btn.textContent = 'Submitting...';
     btn.disabled = true;
 
-    try {
-      var res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      var data = await res.json();
+    fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify(payload)
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
       if (data.success) {
         form.style.display = 'none';
-        document.getElementById('successMsg').style.display = 'block';
+        var successEl = document.getElementById('successMsg');
+        successEl.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         throw new Error(data.message || 'Submission failed');
       }
-    } catch (err) {
+    })
+    .catch(function (err) {
       btn.textContent = 'Submit My Interest \u2192';
       btn.disabled = false;
       alert('Something went wrong. Please try again.\n\n' + err.message);
-    }
+    });
   });
+
+})();
 </script>
 
 </body>
